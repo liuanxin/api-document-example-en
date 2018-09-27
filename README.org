@@ -1,7 +1,7 @@
 
-*** comment
+*** Comment
 
-collect api document info with spring mvc
+Collect api document info with spring mvc
 
 *** Run
 
