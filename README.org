@@ -5,8 +5,8 @@ Collect api document info with spring mvc
 
 *** Run
 
-run WebApplication, request ~http://127.0.0.1:8080/api-info.html~\\
-if want to request url, use ~http://127.0.0.1:8080/api-info-example.html~
+run WebApplication, request ~http://127.0.0.1:8080/api-info-en.html~\\
+if want to request url, use ~http://127.0.0.1:8080/api-info-en-example.html~
 
 [[###][https://raw.githubusercontent.com/liuanxin/image/master/api-en.png]]
 -

@@ -12,6 +12,7 @@ public class DemoDto {
     @ApiParam(value = "user id", must = true)
     private Long userId;
 
+    // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
 }
