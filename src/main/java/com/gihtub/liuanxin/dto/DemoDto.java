@@ -15,4 +15,10 @@ public class DemoDto {
     // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
+
+    public void basicCheck() {
+        if (userId == null || userId <= 0) {
+            throw new RuntimeException("Param 'userId' required, and It's was number");
+        }
+    }
 }
