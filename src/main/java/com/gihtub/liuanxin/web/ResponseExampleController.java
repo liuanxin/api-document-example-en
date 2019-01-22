@@ -24,7 +24,7 @@ public class ResponseExampleController {
             @ApiResponse(code = 404, msg = "not found"),
             @ApiResponse(code = 200, msg = "success")
     })
-    @GetMapping("/demo-object")
+    @PostMapping("/demo-object")
     public ResponseEntity<DemoVo> demoObject(@ApiParam(value = "product name", textarea = true) @RequestParam("name") String abc,
                                              @ApiParam(value = "head 1", paramType = ParamType.Header) @RequestHeader Long id,
                                              @ApiParam(value = "head 2", paramType = ParamType.Header) @RequestHeader("some") String xyz,
@@ -79,7 +79,7 @@ public class ResponseExampleController {
     }
 
     @ApiMethod(title = "No way to parse return 2", develop = Develop.PRODUCT, index = 7)
-    @GetMapping("/demo-error2")
+    @PostMapping("/demo-error2")
     public ResponseEntity demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return ResponseEntity.ok(null);
     }
