@@ -12,55 +12,35 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JsonResult<T> {
 
-    /**
-     * @see JsonCode
-     */
-    @ApiReturn("Return status(same with Response code)")
-    private int code;
+    // It should be only the response code,
+    // the current entity indicates the return after successful processing,
+    // and the response code other than 200 is unified.
+    // @ApiReturn("Return status")
+    // private int code;
 
-    @ApiReturn("Return message. for example: wrong password; address add success. etc...")
+    @ApiReturn("Return message. for example: address add success. etc...")
     private String msg;
 
     @ApiReturn("Return data. {\"id\":1} or [{\"id\":1},{\"id\":2}] depending on the specific business")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
-    private JsonResult(JsonCode code, String msg) {
-        this.code = code.flag;
+    private JsonResult(String msg) {
         this.msg = msg;
     }
-    private JsonResult(JsonCode code, String msg, T data) {
-        this(code, msg);
+    private JsonResult(String msg, T data) {
+        this.msg = msg;
         this.data = data;
     }
 
 
+    // --------------------
+
     public static <T> JsonResult<T> success(String msg) {
-        return new JsonResult<T>(JsonCode.SUCCESS, msg);
+        return new JsonResult<T>(msg);
     }
+
     public static <T> JsonResult<T> success(String msg, T data) {
-        return new JsonResult<T>(JsonCode.SUCCESS, msg, data);
-    }
-
-    public static <T> JsonResult<T> badRequest(String msg) {
-        // return new JsonResult<T>(JsonCode.BAD_REQUEST, msg);
-        return new JsonResult<T>(JsonCode.FAIL, msg);
-    }
-
-    public static <T> JsonResult<T> notLogin(String msg) {
-        return new JsonResult<T>(JsonCode.NOT_LOGIN, msg);
-    }
-
-    public static <T> JsonResult<T> notPermission(String msg) {
-        // return new JsonResult<T>(JsonCode.NOT_PERMISSION, msg);
-        return new JsonResult<T>(JsonCode.FAIL, msg);
-    }
-
-    public static <T> JsonResult<T> notFound(String msg) {
-        return new JsonResult<>(JsonCode.NOT_FOUND, msg);
-    }
-
-    public static <T> JsonResult<T> fail(String msg) {
-        return new JsonResult<T>(JsonCode.FAIL, msg);
+        return new JsonResult<T>(msg, data);
     }
 }

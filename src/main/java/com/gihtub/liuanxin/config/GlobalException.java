@@ -1,8 +1,7 @@
 package com.gihtub.liuanxin.config;
 
-import com.gihtub.liuanxin.util.JsonResult;
+import com.gihtub.liuanxin.util.JsonCode;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,21 +20,25 @@ public class GlobalException {
     private boolean online;
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<JsonResult> noHandler(NoHandlerFoundException e) {
+    public ResponseEntity<String> noHandler(NoHandlerFoundException e) {
         // debug log
         String msg = String.format("Not found(%s %s)", e.getHttpMethod(), e.getRequestURL());
-        return new ResponseEntity<>(JsonResult.notFound(msg), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(JsonCode.NOT_FOUND.getFlag()).body(msg);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<JsonResult> missParam(MissingServletRequestParameterException e) {
+    public ResponseEntity<String> missParam(MissingServletRequestParameterException e) {
         // debug log
         String msg = String.format("Missing required param(%s), type(%s)", e.getParameterName(), e.getParameterType());
-        return new ResponseEntity<>(JsonResult.badRequest(msg), HttpStatus.BAD_REQUEST);
+        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
     }
 
+
+    // ... other exception
+
+
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<JsonResult> other(Throwable e) {
+    public ResponseEntity<String> other(Throwable e) {
         String msg;
         if (online) {
             msg = "Request Error, We will handle it as soon as possible";
@@ -45,6 +48,6 @@ public class GlobalException {
             msg = e.getMessage();
         }
         // error log
-        return new ResponseEntity<>(JsonResult.fail(msg), HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
     }
 }
