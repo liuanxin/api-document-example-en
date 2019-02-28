@@ -15,7 +15,7 @@ public class JsonResult<T> {
     // It should be only the response code,
     // the current entity indicates the return after successful processing,
     // and the response code other than 200 is unified.
-    // @ApiReturn("Return status")
+    // @ApiReturn("Return status, same with response status")
     // private int code;
 
     @ApiReturn("Return message. for example: address add success. etc...")
