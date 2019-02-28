@@ -18,7 +18,7 @@ public class DemoDto {
 
     public void basicCheck() {
         if (userId == null || userId <= 0) {
-            throw new RuntimeException("Param 'userId' required, and It's was number");
+            throw new RuntimeException("Param 'userId' required, and It's was number, and must greater 0");
         }
     }
 }
