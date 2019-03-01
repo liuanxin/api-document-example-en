@@ -1,6 +1,9 @@
 package com.gihtub.liuanxin.config;
 
+import com.gihtub.liuanxin.exception.ServiceException;
 import com.gihtub.liuanxin.util.JsonCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -19,26 +22,47 @@ import java.util.Arrays;
 @ControllerAdvice
 public class GlobalException {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalException.class);
+
     @Value("${online:false}")
     private boolean online;
 
+    @ExceptionHandler(ServiceException.class)
+    public ResponseEntity<String> service(ServiceException e) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("service exception", e);
+        }
+        return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(e.getMessage());
+    }
+
+    // other custom exception
+
+
+    // ... inner with spring's exception ...
+
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<String> noHandler(NoHandlerFoundException e) {
-        // log
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("404", e);
+        }
         String msg = String.format("Not found(%s %s)", e.getHttpMethod(), e.getRequestURL());
         return ResponseEntity.status(JsonCode.NOT_FOUND.getFlag()).body(msg);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public ResponseEntity<String> missParam(MissingServletRequestParameterException e) {
-        // log
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("miss param", e);
+        }
         String msg = String.format("Missing required param(%s), type(%s)", e.getParameterName(), e.getParameterType());
         return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<String> notSupported(HttpRequestMethodNotSupportedException e) {
-        // log
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("method not support", e);
+        }
         String msg = "not support method.";
         if (!online) {
             msg += String.format(". current(%s), support(%s)", e.getMethod(), Arrays.toString(e.getSupportedMethods()));
@@ -60,7 +84,9 @@ public class GlobalException {
         } else {
             msg = e.getMessage();
         }
-        // log
+        if (LOGGER.isErrorEnabled()) {
+            LOGGER.error("unclear exception", e);
+        }
         return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
     }
 }
