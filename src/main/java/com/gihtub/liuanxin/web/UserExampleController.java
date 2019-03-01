@@ -31,7 +31,7 @@ public class UserExampleController {
     @ApiMethod(title = "user detail", develop = Develop.USER, desc = "when use click own avatar")
     @ApiResponses({
             @ApiResponse(code = 200, msg = "success, operate data"),
-            @ApiResponse(code = 500, msg = "error, show msg to customer")
+            @ApiResponse(code = 500, msg = "error, show response body to customer")
     })
     @PostMapping("/{id}")
     public JsonResult<DemoVo> demo3(@PathVariable("id") @ApiParam(value = "user id", example = "1") Long id) {
