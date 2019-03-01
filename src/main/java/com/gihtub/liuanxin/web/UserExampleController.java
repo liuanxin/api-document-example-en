@@ -40,7 +40,8 @@ public class UserExampleController {
 
     @ApiMethod(title = "user operate", develop = Develop.USER)
     @PostMapping("/operate")
-    public JsonResult<PageInfo<DemoVo>> demo4(@ApiParam(value = "move type(0 up, 1 down, default 0)") Boolean type) {
+    public JsonResult<PageInfo<DemoVo>> demo4(
+            @ApiParam("move type(0 means from top to bottom, 1 means from bottom to top, the default is 0)") Boolean type) {
         if (type != null && !type) {
             throw new ServiceException("return error");
         }
