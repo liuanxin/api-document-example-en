@@ -15,7 +15,7 @@ public enum JsonCode {
 
     FAIL(500, "internal error, service exception(show response body)")
 
-    // , SERVICE_FAIL(1000, "service exception")
+    // , SERVICE_FAIL(1000, "service exception(show response body)")
     ;
 
     int flag;
