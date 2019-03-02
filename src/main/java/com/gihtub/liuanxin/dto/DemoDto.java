@@ -1,6 +1,7 @@
 package com.gihtub.liuanxin.dto;
 
 import com.gihtub.liuanxin.enums.Gender;
+import com.gihtub.liuanxin.exception.ServiceException;
 import com.github.liuanxin.api.annotation.ApiParam;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class DemoDto {
 
     public void basicCheck() {
         if (userId == null || userId <= 0) {
-            throw new RuntimeException("Param 'userId' required, and It's was number, and must greater 0");
+            throw new ServiceException("Param 'userId' required, and It's was number, and must greater 0");
         }
     }
 }
