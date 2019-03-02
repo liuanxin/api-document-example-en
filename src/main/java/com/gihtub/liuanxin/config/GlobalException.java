@@ -29,10 +29,12 @@ public class GlobalException {
     private boolean online;
 
     @ExceptionHandler(ServiceException.class)
+    // public JsonResult service(ServiceException e) {
     public ResponseEntity<String> service(ServiceException e) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("service exception", e);
         }
+        // return JsonResult.serviceFail(e.getMessage());
         return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(e.getMessage());
     }
 
@@ -42,32 +44,46 @@ public class GlobalException {
     // ... inner with spring's exception ...
 
     @ExceptionHandler(NoHandlerFoundException.class)
+    // public JsonResult noHandler(NoHandlerFoundException e) {
     public ResponseEntity<String> noHandler(NoHandlerFoundException e) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("404", e);
         }
-        String msg = String.format("Not found(%s %s)", e.getHttpMethod(), e.getRequestURL());
+        String msg = "Not found";
+        if (!online) {
+            msg += String.format("(%s %s)", e.getHttpMethod(), e.getRequestURL());
+        }
+        // return JsonResult.notFound();
         return ResponseEntity.status(JsonCode.NOT_FOUND.getFlag()).body(msg);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
+    // public JsonResult missParam(MissingServletRequestParameterException e) {
     public ResponseEntity<String> missParam(MissingServletRequestParameterException e) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("miss param", e);
         }
-        String msg = String.format("Missing required param(%s), type(%s)", e.getParameterName(), e.getParameterType());
+        String msg = "miss param";
+        if (!online) {
+            msg += String.format("(%s), type(%s)", e.getParameterName(), e.getParameterType());
+        }
+        // return JsonResult.badRequest(msg);
         return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
+    // public JsonResult missHeader(MissingRequestHeaderException e) {
     public ResponseEntity<String> missHeader(MissingRequestHeaderException e) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("miss header", e);
         }
-        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(e.getMessage());
+        String msg = online ? "miss param" : e.getMessage();
+        // return JsonResult.badRequest(msg);
+        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    // public JsonResult notSupported(HttpRequestMethodNotSupportedException e) {
     public ResponseEntity<String> notSupported(HttpRequestMethodNotSupportedException e) {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("method not support", e);
@@ -76,6 +92,7 @@ public class GlobalException {
         if (!online) {
             msg += String.format(". current(%s), support(%s)", e.getMethod(), Arrays.toString(e.getSupportedMethods()));
         }
+        // return JsonResult.fail(msg);
         return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
     }
 
@@ -84,6 +101,7 @@ public class GlobalException {
 
 
     @ExceptionHandler(Throwable.class)
+    // public JsonResult other(Throwable e) {
     public ResponseEntity<String> other(Throwable e) {
         String msg;
         if (online) {
@@ -96,6 +114,7 @@ public class GlobalException {
         if (LOGGER.isErrorEnabled()) {
             LOGGER.error("unclear exception", e);
         }
+        // return JsonResult.fail(msg);
         return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
     }
 }
