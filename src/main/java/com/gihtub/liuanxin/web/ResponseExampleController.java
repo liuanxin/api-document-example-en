@@ -3,6 +3,7 @@ package com.gihtub.liuanxin.web;
 import com.gihtub.liuanxin.constant.Develop;
 import com.gihtub.liuanxin.enums.Gender;
 import com.gihtub.liuanxin.enums.ProductType;
+import com.gihtub.liuanxin.exception.ServiceException;
 import com.gihtub.liuanxin.util.Page;
 import com.gihtub.liuanxin.vo.DemoVo;
 import com.github.liuanxin.api.annotation.*;
@@ -30,11 +31,9 @@ public class ResponseExampleController {
                                              @ApiParam(value = "head 2", paramType = ParamType.Header) @RequestHeader("some") String xyz,
                                              Page page) {
         if ("abc".equals(abc)) {
-            return ResponseEntity.notFound().build();
-            // return new ResponseEntity<>(new DemoVo(), HttpStatus.NOT_FOUND);
-        } else {
-            return ResponseEntity.ok(new DemoVo(123L, "Tom", Gender.Male, ProductType.Discount, null));
+            throw new ServiceException("product name error");
         }
+        return ResponseEntity.ok(new DemoVo(123L, "Tom", Gender.Male, ProductType.Discount, null));
     }
 
     @ApiMethod(title = "response List", develop = Develop.PRODUCT, index = 4)

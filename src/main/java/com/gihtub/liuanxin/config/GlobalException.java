@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -56,6 +57,14 @@ public class GlobalException {
         }
         String msg = String.format("Missing required param(%s), type(%s)", e.getParameterName(), e.getParameterType());
         return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
+    }
+
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    public ResponseEntity<String> missHeader(MissingRequestHeaderException e) {
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("miss header", e);
+        }
+        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(e.getMessage());
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
