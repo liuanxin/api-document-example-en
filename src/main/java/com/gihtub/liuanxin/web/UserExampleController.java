@@ -43,7 +43,7 @@ public class UserExampleController {
     public JsonResult<PageInfo<DemoVo>> demo4(
             @ApiParam("move type(0 means from top to bottom, 1 means from bottom to top, the default is 0)") Boolean type) {
         if (type != null && !type) {
-            throw new ServiceException("return error");
+            throw new ServiceException("operate error");
         }
         return JsonResult.success("test4");
     }
