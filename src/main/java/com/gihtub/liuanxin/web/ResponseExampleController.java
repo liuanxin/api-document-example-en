@@ -72,7 +72,7 @@ public class ResponseExampleController {
 
     @ApiMethod(title = "response List", develop = Develop.PRODUCT, index = 4)
     @ApiResponses({
-            @ApiResponse(code = 500, msg = "error"),
+            @ApiResponse(code = 500, msg = "Returns when name is xyz, error"),
             @ApiResponse(code = 200, msg = "success")
     })
     @GetMapping("/demo-list")
@@ -89,7 +89,7 @@ public class ResponseExampleController {
 
     @ApiMethod(title = "response Map", develop = Develop.PRODUCT, index = 5)
     @ApiResponses({
-            @ApiResponse(code = 403, msg = "Returns when name was xyz, no permission(redirect to login page)"),
+            @ApiResponse(code = 403, msg = "Returns when name is xyz, no permission(redirect to login page)"),
             @ApiResponse(code = 200, msg = "success")
     })
     @GetMapping("/demo-map")
