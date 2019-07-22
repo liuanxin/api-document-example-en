@@ -12,11 +12,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JsonResult<T> {
 
-    // It should be only the response code,
-    // the current entity indicates the return after successful processing,
-    // and the response code other than 200 is unified.
     // @ApiReturn("Return status")
-    // private int code;
+    // private JsonCode code;
 
     @ApiReturn("Return message. for example: address add success. etc...")
     private String msg;
@@ -25,48 +22,47 @@ public class JsonResult<T> {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
-    private JsonResult(/*int code, */String msg) {
+    private JsonResult(JsonCode code, String msg) {
         // this.code = code;
         this.msg = msg;
     }
-    private JsonResult(/*int code, */String msg, T data) {
-        // this.code = code;
-        this.msg = msg;
+    private JsonResult(JsonCode code, String msg, T data) {
+        this(code, msg);
         this.data = data;
     }
 
 
-    // --------------------
+    // ---------- In the controller, only use the following static method. Do not new JsonResult()... ----------
 
     public static <T> JsonResult<T> success(String msg) {
-        return new JsonResult<T>(msg);
+        return new JsonResult<T>(JsonCode.SUCCESS, msg);
     }
 
     public static <T> JsonResult<T> success(String msg, T data) {
-        return new JsonResult<T>(msg, data);
+        return new JsonResult<T>(JsonCode.SUCCESS, msg, data);
     }
 
-    /*
+
     public static <T> JsonResult<T> badRequest(String msg) {
-        return new JsonResult<T>(JsonCode.BAD_REQUEST.getFlag(), msg);
+        // return new JsonResult<T>(JsonCode.BAD_REQUEST, msg);
+        return new JsonResult<T>(JsonCode.FAIL, msg);
     }
     public static <T> JsonResult<T> notLogin(String msg) {
-        return new JsonResult<T>(JsonCode.NOT_LOGIN.getFlag(), msg);
+        return new JsonResult<T>(JsonCode.NOT_LOGIN, msg);
     }
     public static <T> JsonResult<T> notPermission(String msg) {
-        return new JsonResult<T>(JsonCode.NOT_PERMISSION.getFlag(), msg);
+        // return new JsonResult<T>(JsonCode.NOT_PERMISSION, msg);
+        return new JsonResult<T>(JsonCode.FAIL, msg);
     }
     public static <T> JsonResult<T> notFound() {
-        return new JsonResult<T>(JsonCode.NOT_FOUND.getFlag(), "404");
+        // return new JsonResult<T>(JsonCode.NOT_FOUND, "404");
+        return new JsonResult<T>(JsonCode.FAIL, "404");
     }
     public static <T> JsonResult<T> fail(String msg) {
-        return new JsonResult<T>(JsonCode.FAIL.getFlag(), msg);
+        return new JsonResult<T>(JsonCode.FAIL, msg);
     }
-    */
 
-    /*
-    public static <T> JsonResult<T> serviceFail(String msg) {
-        return new JsonResult<T>(JsonCode.SERVICE_FAIL.getFlag(), msg);
-    }
-    */
+    // public static <T> JsonResult<T> serviceFail(String msg) {
+    //     return new JsonResult<T>(JsonCode.SERVICE_FAIL, msg);
+    // }
 }

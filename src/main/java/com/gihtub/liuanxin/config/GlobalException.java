@@ -35,7 +35,7 @@ public class GlobalException {
             LOGGER.debug("service exception", e);
         }
         // return JsonResult.serviceFail(e.getMessage());
-        return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(e.getMessage());
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(e.getMessage());
     }
 
     // other custom exception
@@ -54,7 +54,8 @@ public class GlobalException {
             msg += String.format("(%s %s)", e.getHttpMethod(), e.getRequestURL());
         }
         // return JsonResult.notFound();
-        return ResponseEntity.status(JsonCode.NOT_FOUND.getFlag()).body(msg);
+        // return ResponseEntity.status(JsonCode.NOT_FOUND.getCode()).body(msg);
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(msg);
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
@@ -68,7 +69,8 @@ public class GlobalException {
             msg += String.format("(%s), type(%s)", e.getParameterName(), e.getParameterType());
         }
         // return JsonResult.badRequest(msg);
-        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
+        // return ResponseEntity.status(JsonCode.BAD_REQUEST.getCode()).body(msg);
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(msg);
     }
 
     @ExceptionHandler(MissingRequestHeaderException.class)
@@ -77,9 +79,13 @@ public class GlobalException {
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("miss header", e);
         }
-        String msg = online ? "miss param" : e.getMessage();
+        String msg = "miss header";
+        if (!online) {
+            msg += String.format(" name(%s)", e.getHeaderName());
+        }
         // return JsonResult.badRequest(msg);
-        return ResponseEntity.status(JsonCode.BAD_REQUEST.getFlag()).body(msg);
+        // return ResponseEntity.status(JsonCode.BAD_REQUEST.getCode()).body(msg);
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(msg);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
@@ -93,7 +99,7 @@ public class GlobalException {
             msg += String.format(". current(%s), support(%s)", e.getMethod(), Arrays.toString(e.getSupportedMethods()));
         }
         // return JsonResult.fail(msg);
-        return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(msg);
     }
 
 
@@ -115,6 +121,6 @@ public class GlobalException {
             LOGGER.error("unclear exception", e);
         }
         // return JsonResult.fail(msg);
-        return ResponseEntity.status(JsonCode.FAIL.getFlag()).body(msg);
+        return ResponseEntity.status(JsonCode.FAIL.getCode()).body(msg);
     }
 }
