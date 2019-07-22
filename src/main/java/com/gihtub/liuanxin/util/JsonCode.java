@@ -9,19 +9,21 @@ public enum JsonCode {
     // The return code is used on the http response code. It needs to be added when the front end needs to change the page logic.
     // For example, the following 400 403 404 is the output msg for the front end, so can use 500 to return
 
-    SUCCESS(200, "success. operate data or show message, depending on the specific business"),
+    /** operate data or show message, depending on the specific business */
+    SUCCESS(200, "success"),
 
-    // BAD_REQUEST(400, "param error(show response body)"),
+    // BAD_REQUEST(400, "param error"),
 
-    NOT_LOGIN(401, "need login, redirect to login page"),
+    /** redirect to login page */
+    NOT_LOGIN(401, "need login"),
 
-    // NOT_PERMISSION(403, "need permission(show response body)"),
+    // NOT_PERMISSION(403, "need permission"),
 
     // NOT_FOUND(404, "not found"),
 
-    FAIL(500, "internal error, service exception(show response body)")
+    FAIL(500, "internal error or service exception")
 
-    // , SERVICE_FAIL(1000, "service exception(show response body)")
+    // , SERVICE_FAIL(1000, "service exception")
     ;
 
     int code;
