@@ -1,5 +1,6 @@
 package com.gihtub.liuanxin.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gihtub.liuanxin.enums.Gender;
 import com.gihtub.liuanxin.enums.ProductType;
 import com.github.liuanxin.api.annotation.ApiReturn;
@@ -29,7 +30,8 @@ public class DemoVo {
     @ApiReturn(value = "product type", type = "int")
     private ProductType type;
 
-    @ApiReturn(value = "return Map example")
+    @ApiReturn(value = "return Map example, ignore return if null or empty")
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<Integer, DemoOtherVo> map;
 
 
