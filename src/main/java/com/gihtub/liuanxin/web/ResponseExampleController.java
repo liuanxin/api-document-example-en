@@ -24,7 +24,7 @@ public class ResponseExampleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResponseExampleController.class);
 
-    @ApiMethod(title = "response mode", develop = Develop.PRODUCT, index = 3)
+    @ApiMethod(value = "response mode", develop = Develop.PRODUCT, index = 3)
     @ApiResponses({
             @ApiResponse(code = 404, msg = "not found"),
             @ApiResponse(code = 200, msg = "success")
@@ -70,7 +70,7 @@ public class ResponseExampleController {
         return ResponseEntity.ok(new DemoVo(123L, "Tom", Gender.Male, ProductType.Discount, null));
     }
 
-    @ApiMethod(title = "response List", develop = Develop.PRODUCT, index = 4)
+    @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 4)
     @ApiResponses({
             @ApiResponse(code = 500, msg = "Returns when name is xyz, error"),
             @ApiResponse(code = 200, msg = "success")
@@ -87,7 +87,7 @@ public class ResponseExampleController {
         }
     }
 
-    @ApiMethod(title = "response Map", develop = Develop.PRODUCT, index = 5)
+    @ApiMethod(value = "response Map", develop = Develop.PRODUCT, index = 5)
     @ApiResponses({
             @ApiResponse(code = 403, msg = "Returns when name is xyz, no permission(redirect to login page)"),
             @ApiResponse(code = 200, msg = "success")
@@ -105,19 +105,19 @@ public class ResponseExampleController {
     }
 
 
-    @ApiMethod(title = "No way to parse return 1", develop = Develop.PRODUCT, index = 6)
+    @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT, index = 6)
     @GetMapping("/demo-error")
     public Object demoError(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return new HashMap<>();
     }
 
-    @ApiMethod(title = "No way to parse return 2", develop = Develop.PRODUCT, index = 7)
+    @ApiMethod(value = "No way to parse return 2", develop = Develop.PRODUCT, index = 7)
     @PostMapping("/demo-error2")
     public ResponseEntity demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return ResponseEntity.ok(null);
     }
 
-    @ApiMethod(title = "No way to parse return 3", develop = Develop.PRODUCT, index = 7)
+    @ApiMethod(value = "No way to parse return 3", develop = Develop.PRODUCT, index = 7)
     @GetMapping("/demo-error3")
     public ResponseEntity<Object> demoError3(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return ResponseEntity.ok(new HashMap<>());

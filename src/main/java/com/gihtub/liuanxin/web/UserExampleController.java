@@ -17,19 +17,19 @@ import org.springframework.web.bind.annotation.*;
 @ApiGroup(value = Develop.USER_DESC, index = 1)
 public class UserExampleController {
 
-    @ApiMethod(title = "user list", develop = Develop.USER, index = 1, desc = "manager query")
+    @ApiMethod(value = "user list", develop = Develop.USER, index = 1, desc = "manager query")
     @GetMapping
     public JsonResult<PageInfo<DemoVo>> demo1(DemoDto demoDto, Page page) {
         return JsonResult.success("test1");
     }
 
-    @ApiMethod(title = "user info", develop = Develop.USER, index = 2, commentInReturnExample = false)
+    @ApiMethod(value = "user info", develop = Develop.USER, index = 2, commentInReturnExample = false)
     @GetMapping("/info")
     public JsonResult<PageInfo<DemoVo>> demo2(@ApiParam("user type") UserType type) {
         return JsonResult.success("test2");
     }
 
-    @ApiMethod(title = "user detail", develop = Develop.USER, desc = "when use click own avatar")
+    @ApiMethod(value = "user detail", develop = Develop.USER, desc = "when use click own avatar")
     @ApiResponses({
             @ApiResponse(code = 200, msg = "success, operate data"),
             @ApiResponse(code = 500, msg = "error, show response body to customer")
@@ -39,7 +39,7 @@ public class UserExampleController {
         return JsonResult.success("test3");
     }
 
-    @ApiMethod(title = "user operate", develop = Develop.USER)
+    @ApiMethod(value = "user operate", develop = Develop.USER)
     @PostMapping("/operate")
     public JsonResult<PageInfo<DemoVo>> demo4(
             @ApiParam("move type(0 means from top to bottom, 1 means from bottom to top, the default is 0)") Boolean type) {
