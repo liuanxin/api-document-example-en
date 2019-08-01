@@ -1,6 +1,7 @@
 package com.gihtub.liuanxin.dto;
 
 import com.gihtub.liuanxin.enums.Gender;
+import com.gihtub.liuanxin.enums.ProductType;
 import com.gihtub.liuanxin.exception.ServiceException;
 import com.github.liuanxin.api.annotation.ApiParam;
 import lombok.Getter;
@@ -16,6 +17,8 @@ public class DemoDto {
     // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
+
+    private ProductType[] types;
 
     public void basicCheck() {
         if (userId == null || userId <= 0) {

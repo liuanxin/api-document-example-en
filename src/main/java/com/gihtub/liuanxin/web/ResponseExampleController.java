@@ -1,8 +1,6 @@
 package com.gihtub.liuanxin.web;
 
 import com.gihtub.liuanxin.constant.Develop;
-import com.gihtub.liuanxin.enums.Gender;
-import com.gihtub.liuanxin.enums.ProductType;
 import com.gihtub.liuanxin.exception.ServiceException;
 import com.gihtub.liuanxin.util.Page;
 import com.gihtub.liuanxin.vo.DemoVo;
@@ -15,7 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/response")
@@ -67,7 +68,7 @@ public class ResponseExampleController {
         }
 
         // it's ok
-        return ResponseEntity.ok(new DemoVo(123L, "Tom", Gender.Male, ProductType.Discount, null));
+        return ResponseEntity.ok(DemoVo.testData());
     }
 
     @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 4)
@@ -81,9 +82,7 @@ public class ResponseExampleController {
         if ("xyz".equals(name)) {
             return ResponseEntity.status(500).build();
         } else {
-            return ResponseEntity.ok(Collections.singletonList(
-                    new DemoVo(123L, "Tom", Gender.Male, ProductType.Discount, null)
-            ));
+            return ResponseEntity.ok(DemoVo.testListData());
         }
     }
 
@@ -98,9 +97,7 @@ public class ResponseExampleController {
         if ("xyz".equals(name)) {
             return ResponseEntity.status(403).build();
         } else {
-            return ResponseEntity.ok(Collections.singletonMap(
-                    "123", new DemoVo(123L, "张三", Gender.Male, ProductType.Discount, null)
-            ));
+            return ResponseEntity.ok(DemoVo.testMapData());
         }
     }
 
