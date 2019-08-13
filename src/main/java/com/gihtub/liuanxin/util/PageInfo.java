@@ -14,9 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 public class PageInfo<T> {
 
-    @ApiReturn("The total number(select count(*) from ...)")
+    @ApiReturn("SELECT COUNT(*) FROM ...")
     private int total;
 
-    @ApiReturn("Current page data")
+    @ApiReturn("SELECT ... FROM ... LIMIT 0, 15")
     private List<T> list;
 }

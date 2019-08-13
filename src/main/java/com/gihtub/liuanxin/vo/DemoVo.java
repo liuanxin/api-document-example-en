@@ -1,5 +1,6 @@
 package com.gihtub.liuanxin.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gihtub.liuanxin.enums.Gender;
 import com.gihtub.liuanxin.enums.ProductType;
@@ -11,10 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -32,27 +30,31 @@ public class DemoVo {
     @ApiReturn(value = "user gender", type = "int")
     private Gender gender;
 
-    // in example page, this value will output null
-    // Non-base data type arrays also cause output of warn information
-    // which can be replaced with List<ProductType>
-    @ApiReturn(value = "product type", type = "int")
+    @ApiReturn(value = "product type", example = "discount")
     private ProductType[] productTypes;
-    // private List<ProductType> productTypes;
 
-    @ApiReturn("user type")
+    @ApiReturn(value = "user type", example = "vip")
     private List<UserType> userTypes;
 
-    @ApiReturn(value = "a List example")
+    @ApiReturn("a List example")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<DemoOneVo> ones;
 
-    @ApiReturn(value = "a Map example")
+    @ApiReturn("a Map example")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<Integer, DemoTwoVo> twos;
 
-    @ApiReturn(value = "a Map")
+    @ApiReturn("a Map")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, List<DemoThreeVo>> threes;
+
+    @ApiReturn(value = "time1", example = "01/13/2018 12:13:14")
+    @JsonFormat(pattern = "MM/dd/yyyy HH:mm:ss")
+    private Date createTime;
+
+    @ApiReturn(value = "time2", example = "2019-01-01")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date updateTime;
 
 
     @Getter
@@ -94,7 +96,6 @@ public class DemoVo {
         return new DemoVo(
                 123L, "Tom", Gender.Male,
                 new ProductType[] { ProductType.Normal, ProductType.Discount },
-                // Arrays.asList(ProductType.Normal, ProductType.Discount),
                 Arrays.asList(UserType.Normal, UserType.Vip),
                 Arrays.asList(new DemoOneVo(13579L, "one"), new DemoOneVo(24680L, "two")),
                 new HashMap<Integer, DemoTwoVo>() {{
@@ -106,14 +107,15 @@ public class DemoVo {
                             new DemoThreeVo(159L, Arrays.asList("five", "nine")),
                             new DemoThreeVo(357L, Arrays.asList("three", "seven"))
                     ));
-                }}
+                }},
+                new Date(),
+                new Date()
         );
     }
     public static List<DemoVo> testListData() {
         return Arrays.asList(testData(), new DemoVo(
                 321L, "Jerry", Gender.Female,
                 new ProductType[] { ProductType.Discount },
-                // Arrays.asList(ProductType.Discount),
                 Arrays.asList(UserType.Normal, UserType.Vip),
                 Arrays.asList(new DemoOneVo(97531L, "zero"), new DemoOneVo(86420L, "ten")),
                 new HashMap<Integer, DemoTwoVo>() {{
@@ -125,7 +127,9 @@ public class DemoVo {
                             new DemoThreeVo(951L, Arrays.asList("nine", "five")),
                             new DemoThreeVo(753L, Arrays.asList("seven", "three"))
                     ));
-                }}
+                }},
+                new Date(),
+                new Date()
         ));
     }
     public static PageInfo<DemoVo> testPageData() {
