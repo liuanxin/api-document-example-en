@@ -65,7 +65,7 @@ public class DemoVo {
         @ApiReturn(value = "one id", example = "111")
         private Long oneId;
 
-        @ApiReturn(value = "str", example = "000")
+        @ApiReturn(value = "str", example = "<span style='color:red;'>rich text</span>")
         private String one;
     }
     @Getter
