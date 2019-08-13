@@ -40,11 +40,11 @@ public class DemoVo {
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<DemoOneVo> ones;
 
-    @ApiReturn("a Map example")
+    @ApiReturn("a Map example, key is int, still output as \"0\" string when serializing")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<Integer, DemoTwoVo> twos;
 
-    @ApiReturn("a Map")
+    @ApiReturn("a Map, key is a String, which is output as \"?\" when serialized")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Map<String, List<DemoThreeVo>> threes;
 
