@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 public class Page {
 
-    @ApiParam("Current page, default is 1")
+    @ApiParam("Current page")
     private Integer page;
 
-    @ApiParam("Number of pages per page. default is 15")
+    @ApiParam("Number of pages per page")
     private Integer limit;
 }
