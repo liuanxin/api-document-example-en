@@ -52,7 +52,7 @@ public class UserExampleController {
         return JsonResult.success("test4");
     }
 
-    @ApiMethod(value = "user change", develop = Develop.USER)
+    @ApiMethod(value = "user RequestBody", develop = Develop.USER)
     @PostMapping("/detail")
     public JsonResult<List<DemoVo>> demo5(@RequestBody RequestBodyDto demoDto) {
         return JsonResult.success("test5");
