@@ -12,6 +12,6 @@ public class RequestBodyDto {
     @ApiParam(value = "用户 id", must = true)
     private Long userId;
 
-    @ApiParam(value = "性别", dataType = "int", style = "color:green")
+    @ApiParam(value = "gender", dataType = "int", style = "color:green")
     private Gender gender;
 }
