@@ -49,7 +49,7 @@ public class ApiInfoConfig {
 
     private List<DocumentParam> tokens() {
         return Arrays.asList(
-                DocumentParam.buildToken("x-auth-token", "user oauth", "", true),
+                DocumentParam.buildToken("x-token", "user oauth", "", true),
                 DocumentParam.buildToken("x-version", "api version", Const.PROJECT_VERSION, false).setParamType(ParamType.Query.name())
         );
     }
