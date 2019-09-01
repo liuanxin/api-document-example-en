@@ -3,7 +3,9 @@ package com.gihtub.liuanxin.web;
 import com.gihtub.liuanxin.constant.Develop;
 import com.gihtub.liuanxin.enums.Gender;
 import com.gihtub.liuanxin.exception.ServiceException;
+import com.gihtub.liuanxin.util.JsonResult;
 import com.gihtub.liuanxin.util.Page;
+import com.gihtub.liuanxin.util.PageInfo;
 import com.gihtub.liuanxin.vo.DemoVo;
 import com.github.liuanxin.api.annotation.*;
 import org.slf4j.Logger;
@@ -73,10 +75,12 @@ public class ResponseExampleController {
         return ResponseEntity.ok(DemoVo.testData());
     }
 
-    @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 4)
+    @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 4, commentInReturnExample = false)
     @ApiResponses({
-            @ApiResponse(code = 500, msg = "Returns when name is xyz, error"),
-            @ApiResponse(code = 200, msg = "success")
+            @ApiResponse(code = 200, msg = "success"),
+            @ApiResponse(code = 500, msg = "Returns when name is xyz, error", type = {
+                    @ApiReturnType(value = JsonResult.class, firstGeneric = PageInfo.class, secondGeneric = DemoVo.class)
+            })
     })
     @GetMapping("/demo-list")
     public ResponseEntity<List<DemoVo>> demoList(@ApiParam(value = "product name", textarea = true) String name,
@@ -104,13 +108,17 @@ public class ResponseExampleController {
     }
 
 
-    @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT, index = 6)
+    @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT, index = 6, commentInReturnExampleWithLevel = false, returnType = {
+            @ApiReturnType(value = JsonResult.class, firstGeneric = Map.class, secondGeneric = {String.class, DemoVo.class })
+    })
     @GetMapping("/demo-error")
     public Object demoError(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return new HashMap<>();
     }
 
-    @ApiMethod(value = "No way to parse return 2", develop = Develop.PRODUCT, index = 7)
+    @ApiMethod(value = "No way to parse return 2", develop = Develop.PRODUCT, index = 7, returnType = {
+            @ApiReturnType(value = JsonResult.class, firstGeneric = PageInfo.class, secondGeneric = List.class, thirdGeneric = DemoVo.class)
+    })
     @PostMapping("/demo-error2")
     public ResponseEntity demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return ResponseEntity.ok(null);
