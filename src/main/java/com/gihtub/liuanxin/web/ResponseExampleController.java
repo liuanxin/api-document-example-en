@@ -116,7 +116,7 @@ public class ResponseExampleController {
         return new HashMap<>();
     }
 
-    @ApiMethod(value = "Customize response 1 2", develop = Develop.PRODUCT, index = 7, returnType = {
+    @ApiMethod(value = "Customize response 2", develop = Develop.PRODUCT, index = 7, returnType = {
             @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = List.class, genericChild = DemoVo.class)
     })
     @PostMapping("/demo-error2")
