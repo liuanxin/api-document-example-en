@@ -14,11 +14,12 @@ public class DemoDto {
     @ApiParam(value = "user id", must = true)
     private Long userId;
 
+    @ApiParam(value = "product type", must = true)
+    private ProductType type;
+
     // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
-
-    private ProductType[] types;
 
     public void basicCheck() {
         if (userId == null || userId <= 0) {
