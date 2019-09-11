@@ -27,7 +27,7 @@ public class DemoVo {
     private String name;
 
     // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
-    @ApiReturn(value = "user gender", type = "int")
+    @ApiReturn(value = "user gender", example = "1")
     private Gender gender;
 
     @ApiReturn(value = "product type", example = "discount")
