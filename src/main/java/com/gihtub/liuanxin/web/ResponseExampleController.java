@@ -7,6 +7,9 @@ import com.gihtub.liuanxin.util.JsonResult;
 import com.gihtub.liuanxin.util.Page;
 import com.gihtub.liuanxin.util.PageInfo;
 import com.gihtub.liuanxin.vo.DemoVo;
+import com.gihtub.liuanxin.vo.R0Vo;
+import com.gihtub.liuanxin.vo.R1Vo;
+import com.gihtub.liuanxin.vo.RsVo;
 import com.github.liuanxin.api.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,10 +31,10 @@ public class ResponseExampleController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResponseExampleController.class);
 
-    @ApiMethod(value = "response mode", develop = Develop.PRODUCT, index = 3)
+    @ApiMethod(value = "response mode", develop = Develop.PRODUCT, index = 1)
     @ApiResponses({
-            @ApiResponse(code = 404, msg = "not found"),
-            @ApiResponse(code = 200, msg = "success")
+            @ApiResponse(code = 200, msg = "success"),
+            @ApiResponse(code = 404, msg = "not found")
     })
     @PostMapping("/demo-object")
     public ResponseEntity<DemoVo> demoObject(@ApiParam(value = "product name", textarea = true) @RequestParam("name") String abc,
@@ -75,7 +78,7 @@ public class ResponseExampleController {
         return ResponseEntity.ok(DemoVo.testData());
     }
 
-    @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 4, commentInReturnExample = false)
+    @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 2, commentInReturnExample = false)
     @ApiResponses({
             @ApiResponse(code = 200, msg = "success"),
             @ApiResponse(code = 500, msg = "Returns when name is xyz, error", type = {
@@ -92,10 +95,10 @@ public class ResponseExampleController {
         }
     }
 
-    @ApiMethod(value = "response Map", develop = Develop.PRODUCT, index = 5)
+    @ApiMethod(value = "response Map", develop = Develop.PRODUCT, index = 3)
     @ApiResponses({
-            @ApiResponse(code = 403, msg = "Returns when name is xyz, no permission(redirect to login page)"),
-            @ApiResponse(code = 200, msg = "success")
+            @ApiResponse(code = 200, msg = "success"),
+            @ApiResponse(code = 403, msg = "Returns when name is xyz, no permission(redirect to login page)")
     })
     @GetMapping("/demo-map")
     public ResponseEntity<Map<String, DemoVo>> demoMap(@ApiParam(value = "product name", textarea = true) String name,
@@ -108,25 +111,51 @@ public class ResponseExampleController {
     }
 
 
-    @ApiMethod(value = "Customize response 1", develop = Develop.PRODUCT, index = 6, commentInReturnExampleWithLevel = false, returnType = {
+    @ApiMethod(value = "Customize response 1", develop = Develop.PRODUCT, index = 4, commentInReturnExampleWithLevel = false, returnType = {
             @ApiReturnType(value = JsonResult.class, genericParent = Map.class, generic = {String.class, DemoVo.class })
     })
-    @GetMapping("/demo-error")
-    public Object demoError(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+    @GetMapping("/demo-custom1")
+    public Object custom1() {
         return new HashMap<>();
     }
 
-    @ApiMethod(value = "Customize response 2", develop = Develop.PRODUCT, index = 7, returnType = {
+    @ApiMethod(value = "Customize response 2", develop = Develop.PRODUCT, index = 5, returnType = {
             @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = List.class, genericChild = DemoVo.class)
     })
-    @PostMapping("/demo-error2")
-    public ResponseEntity demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+    @PostMapping("/demo-custom2")
+    public ResponseEntity custom2(@ApiParam(value = "product name", textarea = true) String name) {
         return ResponseEntity.ok(null);
     }
 
-    @ApiMethod(value = "No way to parse return", develop = Develop.PRODUCT, index = 7)
-    @GetMapping("/demo-error3")
-    public ResponseEntity demoError3(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+
+    @ApiMethod(value = "recursive 1", develop = Develop.PRODUCT, index = 6)
+    @GetMapping("/demo-recursive1")
+    public ResponseEntity<RsVo> recursive1() {
+        return ResponseEntity.ok(RsVo.testData());
+    }
+    @ApiMethod(value = "recursive 2", develop = Develop.PRODUCT, index = 7)
+    @GetMapping("/demo-recursive2")
+    public ResponseEntity<R0Vo> recursive2(@ApiParam(value = "product name", textarea = true) String name) {
+        return ResponseEntity.ok(R0Vo.testData());
+    }
+    @ApiMethod(value = "recursive 3", develop = Develop.PRODUCT, index = 8)
+    @GetMapping("/demo-recursive3")
+    public ResponseEntity<R1Vo> recursive3(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+        return ResponseEntity.ok(R1Vo.testData());
+    }
+
+
+    // The following return results cannot be parsed
+
+    @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT)
+    @GetMapping("/demo-error1")
+    public ResponseEntity demoError1(@ApiParam(value = "product name", textarea = true) String name) {
+        return ResponseEntity.ok(new HashMap<>());
+    }
+
+    @ApiMethod(value = "No way to parse return 2", develop = Develop.PRODUCT)
+    @GetMapping("/demo-error2")
+    public ResponseEntity<Object> demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
         return ResponseEntity.ok(new HashMap<>());
     }
 }
