@@ -130,13 +130,13 @@ public class ResponseExampleController {
 
     @ApiMethod(value = "recursive 1", develop = Develop.PRODUCT, index = 6)
     @GetMapping("/demo-recursive1")
-    public ResponseEntity<RsVo> recursive1() {
-        return ResponseEntity.ok(RsVo.testData());
+    public JsonResult<RsVo> recursive1() {
+        return JsonResult.success("r1", RsVo.testData());
     }
     @ApiMethod(value = "recursive 2", develop = Develop.PRODUCT, index = 7)
     @GetMapping("/demo-recursive2")
-    public ResponseEntity<R0Vo> recursive2(@ApiParam(value = "product name", textarea = true) String name) {
-        return ResponseEntity.ok(R0Vo.testData());
+    public JsonResult<R0Vo> recursive2(@ApiParam(value = "商品名", textarea = true) String name) {
+        return JsonResult.success("r2", R0Vo.testData());
     }
     @ApiMethod(value = "recursive 3", develop = Develop.PRODUCT, index = 8)
     @GetMapping("/demo-recursive3")
