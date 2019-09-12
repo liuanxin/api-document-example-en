@@ -5,7 +5,6 @@ import com.gihtub.liuanxin.util.JsonResult;
 import com.gihtub.liuanxin.util.PageInfo;
 import com.gihtub.liuanxin.vo.DemoVo;
 import com.github.liuanxin.api.annotation.EnableApiInfo;
-import com.github.liuanxin.api.annotation.ParamType;
 import com.github.liuanxin.api.model.DocumentCopyright;
 import com.github.liuanxin.api.model.DocumentParam;
 import com.github.liuanxin.api.model.DocumentResponse;
@@ -65,8 +64,8 @@ public class ApiInfoConfig {
 
     private List<DocumentParam> tokens() {
         return Arrays.asList(
-                DocumentParam.buildToken("x-token", "user oauth", "", true),
-                DocumentParam.buildToken("x-version", "api version", Const.PROJECT_VERSION, false).setParamType(ParamType.Query.name())
+                DocumentParam.buildToken("x-token", "user oauth", "", true)
+//                , DocumentParam.buildToken("x-version", "api version", Const.PROJECT_VERSION, false).setParamType(ParamType.Query.name())
         );
     }
 }
