@@ -36,7 +36,7 @@ public class ProductExampleController {
         return JsonResult.success("detail", DemoVo.testData());
     }
 
-    @ApiTokens(false)
+    @ApiTokens
     @ApiMethod(value = "product list(List)", develop = Develop.PRODUCT, index = 1)
     @GetMapping("/list")
     public JsonResult<List<DemoVo>> list(@ApiParam("product type") ProductType type) {
