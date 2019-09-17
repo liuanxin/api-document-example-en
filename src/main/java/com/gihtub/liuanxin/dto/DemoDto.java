@@ -23,8 +23,8 @@ public class DemoDto {
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
 
-    @ApiParam(datePattern = "MM/DD/YYYY HH:mm", must = true)
-    private Date date;
+    @ApiParam(datePattern = "MM/DD/YYYY HH:mm:ss", must = true)
+    private Date createTime;
 
     public void basicCheck() {
         if (userId == null || userId <= 0) {
