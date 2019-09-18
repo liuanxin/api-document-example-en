@@ -19,10 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
 @RequestMapping("/response")
@@ -149,13 +146,15 @@ public class ResponseExampleController {
 
     @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT)
     @GetMapping("/demo-error1")
-    public ResponseEntity demoError1(@ApiParam(value = "product name", textarea = true) String name) {
+    public ResponseEntity demoError1(@ApiParam(datePattern = "MM/DD/YYYY") Date create) {
         return ResponseEntity.ok(new HashMap<>());
     }
 
     @ApiMethod(value = "No way to parse return 2", develop = Develop.PRODUCT)
     @GetMapping("/demo-error2")
-    public ResponseEntity<Object> demoError2(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+    public ResponseEntity<Object> demoError2(
+            @ApiParam(dataType = "date", datePattern = "HH:mm:ss") String time,
+            Page page) {
         return ResponseEntity.ok(new HashMap<>());
     }
 }
