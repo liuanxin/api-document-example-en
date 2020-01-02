@@ -146,7 +146,7 @@ public class ResponseExampleController {
 
     @ApiMethod(value = "No way to parse return 1", develop = Develop.PRODUCT)
     @GetMapping("/demo-error1")
-    public ResponseEntity demoError1(@ApiParam(datePattern = "MM/DD/YYYY") Date create) {
+    public ResponseEntity demoError1(@ApiParam(datePattern = "MM/DD/yyyy") Date create) {
         return ResponseEntity.ok(new HashMap<>());
     }
 
