@@ -32,7 +32,7 @@ public class ApiInfoConfig {
                 .setGlobalResponse(globalResponse())
                 .setGlobalTokens(tokens())
                 .setProjectMap(new LinkedHashMap<String, String>() {{
-                    put("example-示例", "http://127.0.0.1:8080");
+                    put("cn-中文接口示例", "http://127.0.0.1:8080");
                 }})
                 .setOnline(online);
     }
