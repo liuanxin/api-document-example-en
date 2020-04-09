@@ -31,6 +31,9 @@ public class ApiInfoConfig {
                 .setIgnoreUrlSet(ignoreUrl())
                 .setGlobalResponse(globalResponse())
                 .setGlobalTokens(tokens())
+                .setProjectMap(new LinkedHashMap<String, String>() {{
+                    put("example-示例", "http://127.0.0.1:8080");
+                }})
                 .setOnline(online);
     }
 
