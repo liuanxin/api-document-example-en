@@ -13,17 +13,17 @@ import java.util.Date;
 @Setter
 public class DemoDto {
 
-    @ApiParam(value = "user id", must = true)
+    @ApiParam(value = "user id", required = true)
     private Long userId;
 
-    @ApiParam(value = "product type", must = true)
+    @ApiParam(value = "product type", required = true)
     private ProductType type;
 
     // Document collection will add enum's { getCode : getValue } information (no splicing name) to the description
     @ApiParam(value = "user gender", dataType = "int")
     private Gender gender;
 
-    @ApiParam(datePattern = "MM/DD/yyyy HH:mm:ss", must = true)
+    @ApiParam(datePattern = "MM/DD/yyyy HH:mm:ss", required = true)
     private Date createTime;
 
     public void basicCheck() {

@@ -39,7 +39,7 @@ public class ResponseExampleController {
                                              @ApiParam(value = "head 2", paramType = ParamType.Header) @RequestHeader("some") String xyz,
                                              @ApiParam(value = "", example = "2") Gender gender,
                                              @ApiParam("upload file1") MultipartFile file1,
-                                             @ApiParam(value = "upload file2", must = true) MultipartFile file2,
+                                             @ApiParam(value = "upload file2", required = true) MultipartFile file2,
                                              Page page) {
         if ("abc".equals(abc)) {
             throw new ServiceException("product name error");

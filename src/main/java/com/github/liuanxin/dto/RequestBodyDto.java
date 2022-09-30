@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class RequestBodyDto {
 
-    @ApiParam(value = "user id", must = true)
+    @ApiParam(value = "user id", required = true)
     private Long userId;
 
     @ApiParam(value = "gender", dataType = "int", style = "color:green")
