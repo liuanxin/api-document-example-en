@@ -1,4 +1,4 @@
-package com.github.liuanxin.dto;
+package com.github.liuanxin.req;
 
 import com.github.liuanxin.api.annotation.ApiParam;
 import com.github.liuanxin.enums.Gender;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class DemoDto {
+public class DemoReq {
 
     @ApiParam(value = "user id", required = true)
     private Long userId;

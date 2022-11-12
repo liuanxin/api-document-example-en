@@ -1,4 +1,4 @@
-package com.github.liuanxin.vo;
+package com.github.liuanxin.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class R0Vo {
+public class R0Res {
 
     private int id;
     private R10Vo r10;
@@ -24,11 +24,11 @@ public class R0Vo {
     public static class R10Vo {
 
         private int id;
-        private R0Vo r0;
+        private R0Res r0;
     }
 
 
-    public static R0Vo testData() {
-        return new R0Vo(111, new R10Vo(333, null));
+    public static R0Res testData() {
+        return new R0Res(111, new R10Vo(333, null));
     }
 }

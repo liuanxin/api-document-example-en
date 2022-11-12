@@ -4,13 +4,13 @@ import com.github.liuanxin.api.annotation.*;
 import com.github.liuanxin.constant.Develop;
 import com.github.liuanxin.enums.Gender;
 import com.github.liuanxin.exception.ServiceException;
+import com.github.liuanxin.res.DemoRes;
+import com.github.liuanxin.res.R0Res;
+import com.github.liuanxin.res.R1Res;
+import com.github.liuanxin.res.RsRes;
 import com.github.liuanxin.util.JsonResult;
 import com.github.liuanxin.util.Page;
 import com.github.liuanxin.util.PageInfo;
-import com.github.liuanxin.vo.DemoVo;
-import com.github.liuanxin.vo.R0Vo;
-import com.github.liuanxin.vo.R1Vo;
-import com.github.liuanxin.vo.RsVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +34,13 @@ public class ResponseExampleController {
             @ApiResponse(code = 404, msg = "not found")
     })
     @PostMapping("/demo-object")
-    public ResponseEntity<DemoVo> demoObject(@ApiParam(value = "product name", textarea = true) @RequestParam("name") String abc,
-                                             @ApiParam(value = "head 1", paramType = ParamType.Header) @RequestHeader Long id,
-                                             @ApiParam(value = "head 2", paramType = ParamType.Header) @RequestHeader("some") String xyz,
-                                             @ApiParam(value = "", example = "2") Gender gender,
-                                             @ApiParam("upload file1") MultipartFile file1,
-                                             @ApiParam(value = "upload file2", required = true) MultipartFile file2,
-                                             Page page) {
+    public ResponseEntity<DemoRes> demoObject(@ApiParam(value = "product name", textarea = true) @RequestParam("name") String abc,
+                                              @ApiParam(value = "head 1", paramType = ParamType.Header) @RequestHeader Long id,
+                                              @ApiParam(value = "head 2", paramType = ParamType.Header) @RequestHeader("some") String xyz,
+                                              @ApiParam(value = "", example = "2") Gender gender,
+                                              @ApiParam("upload file1") MultipartFile file1,
+                                              @ApiParam(value = "upload file2", required = true) MultipartFile file2,
+                                              Page page) {
         if ("abc".equals(abc)) {
             throw new ServiceException("product name error");
         }
@@ -72,23 +72,23 @@ public class ResponseExampleController {
         }
 
         // it's ok
-        return ResponseEntity.ok(DemoVo.testData());
+        return ResponseEntity.ok(DemoRes.testData());
     }
 
     @ApiMethod(value = "response List", develop = Develop.PRODUCT, index = 2, commentInReturnExample = false)
     @ApiResponses({
             @ApiResponse(code = 200, msg = "success"),
             @ApiResponse(code = 500, msg = "Returns when name is xyz, error", type = {
-                    @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = DemoVo.class)
+                    @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = DemoRes.class)
             })
     })
     @GetMapping("/demo-list")
-    public ResponseEntity<List<DemoVo>> demoList(@ApiParam(value = "product name", textarea = true) String name,
-                                                 Page page) {
+    public ResponseEntity<List<DemoRes>> demoList(@ApiParam(value = "product name", textarea = true) String name,
+                                                  Page page) {
         if ("xyz".equals(name)) {
             return ResponseEntity.status(500).build();
         } else {
-            return ResponseEntity.ok(DemoVo.testListData());
+            return ResponseEntity.ok(DemoRes.testListData());
         }
     }
 
@@ -98,18 +98,18 @@ public class ResponseExampleController {
             @ApiResponse(code = 403, msg = "Returns when name is xyz, no permission(redirect to login page)")
     })
     @GetMapping("/demo-map")
-    public ResponseEntity<Map<String, DemoVo>> demoMap(@ApiParam(value = "product name", textarea = true) String name,
-                                                       Page page) {
+    public ResponseEntity<Map<String, DemoRes>> demoMap(@ApiParam(value = "product name", textarea = true) String name,
+                                                        Page page) {
         if ("xyz".equals(name)) {
             return ResponseEntity.status(403).build();
         } else {
-            return ResponseEntity.ok(DemoVo.testMapData());
+            return ResponseEntity.ok(DemoRes.testMapData());
         }
     }
 
 
     @ApiMethod(value = "Customize response 1", develop = Develop.PRODUCT, index = 4, commentInReturnExampleWithLevel = false, returnType = {
-            @ApiReturnType(value = JsonResult.class, genericParent = Map.class, generic = {String.class, DemoVo.class })
+            @ApiReturnType(value = JsonResult.class, genericParent = Map.class, generic = {String.class, DemoRes.class })
     })
     @GetMapping("/demo-custom1")
     public Object custom1() {
@@ -117,7 +117,7 @@ public class ResponseExampleController {
     }
 
     @ApiMethod(value = "Customize response 2", develop = Develop.PRODUCT, index = 5, returnType = {
-            @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = List.class, genericChild = DemoVo.class)
+            @ApiReturnType(value = JsonResult.class, genericParent = PageInfo.class, generic = List.class, genericChild = DemoRes.class)
     })
     @PostMapping("/demo-custom2")
     public ResponseEntity custom2(@ApiParam(value = "product name", textarea = true) String name) {
@@ -127,18 +127,18 @@ public class ResponseExampleController {
 
     @ApiMethod(value = "recursive 1", develop = Develop.PRODUCT, index = 6)
     @GetMapping("/demo-recursive1")
-    public JsonResult<RsVo> recursive1() {
-        return JsonResult.success("r1", RsVo.testData());
+    public JsonResult<RsRes> recursive1() {
+        return JsonResult.success("r1", RsRes.testData());
     }
     @ApiMethod(value = "recursive 2", develop = Develop.PRODUCT, index = 7)
     @GetMapping("/demo-recursive2")
-    public JsonResult<R0Vo> recursive2(@ApiParam(value = "product name", textarea = true) String name) {
-        return JsonResult.success("r2", R0Vo.testData());
+    public JsonResult<R0Res> recursive2(@ApiParam(value = "product name", textarea = true) String name) {
+        return JsonResult.success("r2", R0Res.testData());
     }
     @ApiMethod(value = "recursive 3", develop = Develop.PRODUCT, index = 8)
     @GetMapping("/demo-recursive3")
-    public ResponseEntity<R1Vo> recursive3(@ApiParam(value = "product name", textarea = true) String name, Page page) {
-        return ResponseEntity.ok(R1Vo.testData());
+    public ResponseEntity<R1Res> recursive3(@ApiParam(value = "product name", textarea = true) String name, Page page) {
+        return ResponseEntity.ok(R1Res.testData());
     }
 
 

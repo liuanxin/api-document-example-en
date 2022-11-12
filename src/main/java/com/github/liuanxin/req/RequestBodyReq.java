@@ -1,4 +1,4 @@
-package com.github.liuanxin.dto;
+package com.github.liuanxin.req;
 
 import com.github.liuanxin.api.annotation.ApiParam;
 import com.github.liuanxin.enums.Gender;
@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestBodyDto {
+public class RequestBodyReq {
 
     @ApiParam(value = "user id", required = true)
     private Long userId;

@@ -1,4 +1,4 @@
-package com.github.liuanxin.vo;
+package com.github.liuanxin.res;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +11,14 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-public class RsVo {
+public class RsRes {
 
     private int id;
     private String name;
-    private RsVo self;
+    private RsRes self;
 
 
-    public static RsVo testData() {
-        return new RsVo(111, "aaa", new RsVo().setId(222).setName("bbb"));
+    public static RsRes testData() {
+        return new RsRes(111, "aaa", new RsRes().setId(222).setName("bbb"));
     }
 }
