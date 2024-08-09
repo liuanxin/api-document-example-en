@@ -6,7 +6,7 @@ Collect api document info with spring mvc
 *** Run
 
 + run ~WebApplication~ or ~mvn clean package -DskipTests && java -jar target/api-document-example-1.0-SNAPSHOT.jar~
-+ api info: ~http://127.0.0.1:8181/api-info-en.html~, request backend: ~http://127.0.0.1:8181/api-info-en-example.html~
++ api info: ~http://127.0.0.1:8181/api.html?lang=en~, request backend: ~http://127.0.0.1:8181/api-example.html?lang=en~
 
 The final result is as follows
 
