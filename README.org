@@ -6,7 +6,8 @@ Collect api document info with spring mvc
 *** Run
 
 + run ~WebApplication~ or ~mvn clean package -DskipTests && java -jar target/api-document-example-1.0-SNAPSHOT.jar~
-+ api info: ~http://127.0.0.1:8181/api.html?lang=en~, request backend: ~http://127.0.0.1:8181/api-example.html?lang=en~
++ api info: ~http://127.0.0.1:8181/api.html?lang=en~ The page will automatically distinguish between Chinese and English according to the current browser environment, and can add ~lang=cn | en~ to  switch language
++ request backend: ~http://127.0.0.1:8181/api-example.html?lang=en~
 
 The final result is as follows
 
